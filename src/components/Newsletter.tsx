@@ -52,7 +52,8 @@ export default function Newsletter() {
             />
           </h2>
           <p className="text-gray-400">
-            Regular inspections and feedback mechanisms
+            Subscribe to receive updates, stories, and opportunities straight to
+            your inbox.
           </p>
         </div>
 

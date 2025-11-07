@@ -7,8 +7,10 @@ import SplitText from "../SplitText";
 import { Separator } from "../ui/separator";
 import AnimatedContent from "../AnimatedContent";
 import CountUp from "../CountUp";
+import { useRouter } from "next/navigation";
 
 export default function SupportIntro() {
+  const router = useRouter();
   return (
     <section className="py-20 bg-white">
       <div className="container w-full max-w-7xl mx-auto px-4  grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -150,7 +152,10 @@ export default function SupportIntro() {
             threshold={0.1}
             delay={0.1}
           >
-            <Button className="mt-8 font-bold px-10 py-8 text-lg text-black rounded">
+            <Button
+              onClick={() => router.push("/about")}
+              className="mt-8 font-bold px-10 py-8 text-lg text-black rounded"
+            >
               More About Us
             </Button>
           </AnimatedContent>

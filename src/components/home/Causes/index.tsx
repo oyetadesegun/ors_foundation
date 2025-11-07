@@ -31,7 +31,7 @@ function Causes() {
         >
           <div className="flex justify-center mt-14 ">
             <Button className="font-bold px-10 py-8 text-lg text-black rounded">
-              More About Us
+              More Causes
             </Button>
           </div>
         </AnimatedContent>

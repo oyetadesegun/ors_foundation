@@ -26,12 +26,12 @@ export default function Footer() {
             <span className="text-2xl font-semibold">ORS FOUNDATION</span>
           </div>
           <p className="text-gray-300 text-sm leading-relaxed mb-4">
-            Lorem ipsum dolor amet consectetur adi pisicing elit sed eiusmod
-            tempor in cididunt ut labore dolore magna aliqua enim ad minim
-            veniam.
+            Making the world a better place for the underprivileged through
+            integrity, transparency, and discipline.
           </p>
           <p className="text-gray-300 text-sm">
-            Quis nostrud exercita laboris nisi ut aliquip commodo exercita.
+            ORS Foundation is an organization that stands on the core values of
+            Integrity, Transparency, and Discipline.
           </p>
         </div>
 
@@ -68,7 +68,7 @@ export default function Footer() {
             </li>
             <li className="flex gap-3 items-center">
               <Mail className="text-yellow-500 w-5 h-5" />
-              <span>nfo@orsfoundation.org</span>
+              <span>info@orsfoundation.org</span>
             </li>
           </ul>
         </div>

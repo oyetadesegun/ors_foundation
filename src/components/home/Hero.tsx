@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 
 const SLIDE_DURATION = 6000;
@@ -11,7 +12,7 @@ const slides = [
   {
     id: 1,
     image: "/background.jpg",
-    subtitle: "Start Donating Poor People",
+    subtitle: "Start Donating To Poor People",
     title: (
       <>
         Giving help <br /> To Those{" "}
@@ -45,6 +46,7 @@ const slides = [
 
 export default function Hero() {
   const [current, setCurrent] = useState(0);
+  const router = useRouter();
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   const startAutoSlide = () => {
@@ -141,12 +143,16 @@ export default function Hero() {
           className="mt-8 flex gap-6"
         >
           <Button
+            onClick={() => router.push("/about")}
             variant={"secondary"}
             className=" text-white px-6 py-6 md:px-12 md:py-7 rounded font-bold text-md"
           >
             Discover More
           </Button>
-          <Button className=" text-black px-6 py-6 md:px-12 md:py-7 rounded font-bold text-md border-none">
+          <Button
+            onClick={() => router.push("/contact")}
+            className=" text-black px-6 py-6 md:px-12 md:py-7 rounded font-bold text-md border-none"
+          >
             Get A Quote
           </Button>
         </motion.div>

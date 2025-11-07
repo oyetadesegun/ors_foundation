@@ -10,8 +10,8 @@ import { useState } from "react";
 const menus = [
   { name: "HOME", path: "/" },
   { name: "DONATE", path: "/donate" },
-  { name: "ABOUT", path: "#" },
-  { name: "CONTACTS", path: "#" },
+  { name: "ABOUT", path: "/about" },
+  { name: "CONTACTS", path: "/contact" },
 ];
 
 export default function Navbar() {
@@ -80,6 +80,7 @@ export default function Navbar() {
             <Link
               key={item.name}
               href={item.path}
+              onClick={() => setOpen(false)}
               className="hover:text-primary transition"
             >
               {item.name}

@@ -1,3 +1,4 @@
+import ActivitiesSection from "@/components/home/ActivitiesSection";
 import Causes from "@/components/home/Causes";
 import CoreValues from "@/components/home/CoreValues";
 import Hero from "@/components/home/Hero";
@@ -11,6 +12,7 @@ export default function Home() {
       <SupportIntro />
       <Causes />
       <CoreValues />
+      <ActivitiesSection />
       <StatsSection />
     </div>
   );

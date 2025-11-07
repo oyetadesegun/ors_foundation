@@ -42,7 +42,6 @@ export default function StatsSection() {
             className="flex flex-col md:flex-row items-center gap-4 text-center md:text-left"
           >
             <div className="bg-secondary rounded-full w-28 h-28 flex items-center justify-center relative">
-              {/* Dotted border inside the green circle */}
               <div className="absolute inset-2 border-2 border-dotted border-white rounded-full" />
               {stat.icon}
             </div>
