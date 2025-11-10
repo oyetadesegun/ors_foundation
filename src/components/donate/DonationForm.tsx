@@ -6,6 +6,10 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
 import { DollarSign, AlertTriangle } from "lucide-react";
 import SplitText from "../SplitText";
+import Offline from "./Offline";
+import { CurrencySelector } from "./CurrencySelector";
+import { Spinner } from "../ui/spinner";
+import { toast } from "sonner";
 
 export default function DonationForm() {
   const presetAmounts = [20, 50, 100, 200];
@@ -13,6 +17,8 @@ export default function DonationForm() {
   const [custom, setCustom] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("credit");
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isOffline, setIsOffline] = useState(false);
+  const [currency, setCurrency] = useState("NGN");
 
   const handleAmountClick = (value: number) => {
     setAmount(value);
@@ -28,6 +34,48 @@ export default function DonationForm() {
     setCustom("0");
     setAmount(0);
     setTimeout(() => inputRef.current?.focus(), 100);
+  };
+
+  async function handlePay() {
+    const res = await fetch("/api/payment", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        amount,
+        merchantTransactionReference: `DONATE-${Date.now()}`,
+        redirectUrl: "http://localhost.com/",
+        customer: {
+          firstName: "John",
+          lastName: "Doe",
+          currency,
+          phoneNumber: "08123456789",
+          address: "Lagos, Nigeria",
+          emailAddress: "john@example.com",
+        },
+      }),
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      window.location.href = data.paymentLink;
+    } else {
+      toast.error("Payment failed: " + data.error);
+    }
+  }
+
+  const [donating, setDonationg] = useState(false);
+  const handleDonate = async () => {
+    try {
+      setDonationg(true);
+      if (paymentMethod === "offline") {
+        setIsOffline(true);
+      } else {
+        await handlePay();
+      }
+    } catch (error) {
+    } finally {
+      setDonationg(false);
+    }
   };
 
   return (
@@ -58,9 +106,10 @@ export default function DonationForm() {
         <h3 className="text-2xl font-bold text-gray-900">Your Donation:</h3>
 
         <div className="flex items-center gap-4 bg-gray-100 rounded-full">
-          <div className="bg-secondary text-white rounded-full w-14 h-14 flex items-center justify-center">
-            <DollarSign size={20} />
-          </div>
+          <CurrencySelector
+            defaultValue="NGN"
+            onSelect={(currency) => setCurrency(currency)}
+          />
           <Input
             ref={inputRef}
             type="number"
@@ -121,11 +170,14 @@ export default function DonationForm() {
       <div>
         <Button
           className="w-full  text-black text-lg font-semibold py-6 rounded-md"
-          //   onClick={() => alert(`Donating $${amount} via ${paymentMethod}`)}
+          onClick={handleDonate}
+          disabled={donating}
         >
+          {donating && <Spinner />}
           Donate Now
         </Button>
       </div>
+      <Offline open={isOffline} setOpen={setIsOffline} />
     </section>
   );
 }

@@ -1,12 +1,22 @@
 "use client";
 
 import AnimatedContent from "@/components/AnimatedContent";
+import { ICause } from "@/components/causes/CauseForm";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export default function DonationCard() {
+export default function DonationCard({
+  description,
+  goal,
+  title,
+  image,
+  raise,
+  tag,
+}: ICause) {
   const router = useRouter();
+
+  const percentage = (Number(raise) / Number(goal)) * 100;
   return (
     <AnimatedContent
       distance={100}
@@ -22,45 +32,40 @@ export default function DonationCard() {
       <div className=" bg-white rounded-2xl shadow-xs overflow-hidden  p-3 ">
         <div className="relative">
           <img
-            src="/card.jpg"
+            src={image}
             alt="Child"
             className="w-full h-48 object-cover rounded-2xl"
           />
           <span className="absolute -bottom-3 right-3 bg-secondary text-white text-sm font-medium px-6 py-2 rounded">
-            Health
+            {tag}
           </span>
         </div>
 
         <div className="space-y-6 mt-2">
           <div className="p-5">
-            <h3 className="text-lg font-bold text-gray-900">
-              Children we work with
-            </h3>
-            <p className="text-gray-500 text-sm">
-              Lorem ipsum dolor sit amet, consete sadipscing elitr, sed diam
-              nonum
-            </p>
+            <h3 className="text-lg font-bold text-gray-900">{title}</h3>
+            <p className="text-gray-500 text-sm">{description}</p>
           </div>
 
           <div className="bg-secondary/10 rounded-xl p-4">
             <div className="flex justify-between text-sm font-semibold  mb-2">
               <span>Donation</span>
-              <span>85%</span>
+              <span>{percentage}%</span>
             </div>
             <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
               <div
                 className="h-full bg-black rounded-full"
-                style={{ width: "85%" }}
+                style={{ width: `${percentage}%` }}
               ></div>
             </div>
 
             <div className="flex justify-between mt-2 text-sm">
               <span className="text-gray-700">
-                Raised: <span className="font-semibold">$8500</span>
+                Raised: <span className="font-semibold">${raise}</span>
               </span>
               <span className="text-gray-700">
                 Goal:{" "}
-                <span className="font-semibold text-primary">$10,000</span>
+                <span className="font-semibold text-primary">${goal}</span>
               </span>
             </div>
           </div>

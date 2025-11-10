@@ -15,7 +15,7 @@ import { Separator } from "./ui/separator";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-secondary text-white">
+    <footer className="relative bg-secondary text-white z-20">
       <div className="absolute inset-0 bg-black/70"></div>
       <Newsletter />
       <Separator className=" max-w-7xl mx-auto w-full " />

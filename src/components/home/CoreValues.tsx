@@ -65,6 +65,7 @@ export default function CoreValues() {
               <TabsList className="w-full bg-transparent">
                 {["Integrity", "Transparency", "Discipline"].map((item) => (
                   <TabsTrigger
+                    key={item}
                     value={item}
                     className="data-[state=active]:bg-secondary data-[state=active]:text-white p-5 rounded-full font-bold text-md"
                   >

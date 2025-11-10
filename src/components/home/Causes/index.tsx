@@ -4,8 +4,25 @@ import AnimatedContent from "@/components/AnimatedContent";
 import SectionHeader from "../../SectionHeader";
 import DonationCard from "./DonationCard";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { ICause } from "@/components/causes/CauseForm";
 
 function Causes() {
+  const [causes, setCauses] = useState<ICause[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchCauses = async () => {
+    setLoading(true);
+    const res = await fetch("/api/causes");
+    const data = await res.json();
+    setCauses(data);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchCauses();
+  }, []);
+
   return (
     <div className="bg-gray-100 py-16">
       <div className="container w-full max-w-7xl mx-auto px-4">
@@ -14,9 +31,9 @@ function Causes() {
           title="Bring Hope to Those Who Need It Most"
         />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <DonationCard />
-          <DonationCard />
-          <DonationCard />
+          {causes.map((cause) => (
+            <DonationCard key={cause._id} {...cause} />
+          ))}
         </div>
         <AnimatedContent
           distance={100}
