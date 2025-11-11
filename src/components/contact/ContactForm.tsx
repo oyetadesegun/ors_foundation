@@ -1,6 +1,38 @@
+"use client";
+
 import { Mail, Phone, User, MessageSquare } from "lucide-react";
 
 export default function ContactForm() {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      message: formData.get("message"),
+    };
+
+    console.log(data);
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      alert("✅ Message sent successfully!");
+      form.reset();
+    } else {
+      alert("❌ Failed to send message.");
+    }
+  }
+
   return (
     <section className="py-20 bg-white" id="contact">
       <div className="max-w-7xl mx-auto px-6 md:px-10 grid md:grid-cols-2 gap-12">
@@ -47,10 +79,12 @@ export default function ContactForm() {
             *
           </p>
 
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="relative">
               <input
                 type="text"
+                id="name"
+                name="name"
                 placeholder="Enter Name"
                 className="w-full bg-gray-100 rounded-lg py-4 pl-4 pr-10 outline-none focus:ring-2 focus:ring-primary"
               />
@@ -63,6 +97,8 @@ export default function ContactForm() {
             <div className="relative">
               <input
                 type="email"
+                id="email"
+                name="email"
                 placeholder="Enter Email"
                 className="w-full bg-gray-100 rounded-lg py-4 pl-4 pr-10 outline-none focus:ring-2 focus:ring-primary"
               />
@@ -75,6 +111,8 @@ export default function ContactForm() {
             <div className="relative">
               <input
                 type="text"
+                id="phone"
+                name="phone"
                 placeholder="Phone Number"
                 className="w-full bg-gray-100 rounded-lg py-4 pl-4 pr-10 outline-none focus:ring-2 focus:ring-primary"
               />
@@ -87,6 +125,8 @@ export default function ContactForm() {
               <textarea
                 placeholder="Your Message..."
                 rows={4}
+                id="message"
+                name="message"
                 className="w-full bg-gray-100 rounded-lg py-4 pl-4 pr-10 outline-none resize-none focus:ring-2 focus:ring-primary"
               ></textarea>
               <MessageSquare

@@ -25,10 +25,6 @@ export default function Footer() {
             <Image src="/logo.png" alt="Charitia Logo" width={40} height={40} />
             <span className="text-2xl font-semibold">ORS FOUNDATION</span>
           </div>
-          <p className="text-gray-300 text-sm leading-relaxed mb-4">
-            Making the world a better place for the underprivileged through
-            integrity, transparency, and discipline.
-          </p>
           <p className="text-gray-300 text-sm">
             ORS Foundation is an organization that stands on the core values of
             Integrity, Transparency, and Discipline.
@@ -39,18 +35,21 @@ export default function Footer() {
           <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
           <div className="h-0.5 w-12 bg-yellow-500 mb-6" />
           <ul className="space-y-3 text-gray-300">
-            {["About Us", "Donate Us", "Our Causes", "Contact Us"].map(
-              (item) => (
-                <li key={item}>
-                  <Link
-                    href="#"
-                    className="hover:text-yellow-400 flex items-center gap-2"
-                  >
-                    <ChevronRight size={16} /> {item}
-                  </Link>
-                </li>
-              )
-            )}
+            {[
+              { path: "/about", label: "About Us" },
+              { path: "/donate", label: "Donate Us" },
+              { path: "/donate", label: "Our Causes" },
+              { path: "/contact", label: "Contact Us" },
+            ].map((item) => (
+              <li key={item.label}>
+                <Link
+                  href={item.path}
+                  className="hover:text-yellow-400 flex items-center gap-2"
+                >
+                  <ChevronRight size={16} /> {item.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -103,7 +102,7 @@ export default function Footer() {
       <div className="relative z-10 bg-primary text-black py-6">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex flex-wrap justify-center md:justify-start gap-4 text-sm font-medium">
-            <Link href="#" className="hover:underline">
+            <Link href="/contact" className="hover:underline">
               Contact us
             </Link>
             <span>|</span>

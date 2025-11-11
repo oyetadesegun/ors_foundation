@@ -93,10 +93,10 @@ export default function DonationForm() {
         rootMargin="0px"
         textAlign="start"
       />
-      <p className="text-gray-600 ">
-        Business tailored IT design, management & support services business
-        agency elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-        aliqua.
+      <p className="text-gray-600">
+        Your donation provides education, nutritious meals, medical care, and
+        safe shelter for vulnerable children — empowering families to break the
+        cycle of poverty.
       </p>
       <h3 className="text-2xl font-bold text-gray-900">
         Support Where It Counts.
