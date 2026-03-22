@@ -5,12 +5,13 @@ import { verifyToken } from "@/lib/auth";
 
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await verifyToken(req);
     await connectDB();
-    await Contact.findByIdAndDelete(params.id);
+    const { id } = await params;
+    await Contact.findByIdAndDelete(id);
     return NextResponse.json({ message: "Message deleted successfully." });
   } catch (error: any) {
     console.error("Error deleting message:", error);
