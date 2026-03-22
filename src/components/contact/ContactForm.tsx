@@ -9,27 +9,39 @@ export default function ContactForm() {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    const name = formData.get("name")?.toString().trim();
+    const email = formData.get("email")?.toString().trim();
+    const message = formData.get("message")?.toString().trim();
+
+    if (!name || !email || !message) {
+      alert("⚠️ Please fill in all required fields.");
+      return;
+    }
+
     const data = {
-      name: formData.get("name"),
-      email: formData.get("email"),
+      name,
+      email,
       phone: formData.get("phone"),
-      message: formData.get("message"),
+      message,
     };
 
-    console.log(data);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-
-    const result = await res.json();
-    if (result.success) {
-      alert("✅ Message sent successfully!");
-      form.reset();
-    } else {
-      alert("❌ Failed to send message.");
+      const result = await res.json();
+      if (res.ok && result.success) {
+        alert(`✅ ${result.message || "Message sent successfully!"}`);
+        form.reset();
+      } else {
+        alert(`❌ ${result.error || "Failed to send message."}`);
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert("❌ An error occurred while sending the message.");
     }
   }
 

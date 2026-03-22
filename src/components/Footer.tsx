@@ -1,13 +1,14 @@
 import {
   Mail,
   MapPin,
-  Phone,
+  
   ChevronRight,
   Facebook,
   Instagram,
   Twitter,
   Linkedin,
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import Newsletter from "./Newsletter";
@@ -62,7 +63,7 @@ export default function Footer() {
               <span>Flat 20, Reynolds Neck, North Helenaville, FV77 8WS</span>
             </li> */}
             <li className="flex gap-3 items-center">
-              <Phone className="text-yellow-500 w-5 h-5" />
+              <FaWhatsapp className="text-yellow-500 w-5 h-5" />
               <span> +2349071663551</span>
             </li>
             <li className="flex gap-3 items-center">
