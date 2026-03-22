@@ -15,6 +15,7 @@ import Newsletter from "./Newsletter";
 import { Separator } from "./ui/separator";
 
 export default function Footer() {
+  const EMAIL_ADDRESS = process.env.NEXT_PUBLIC_EMAIL_ADDRESS;
   return (
     <footer className="relative bg-secondary text-white z-20">
       <div className="absolute inset-0 bg-black/70"></div>
@@ -64,11 +65,11 @@ export default function Footer() {
             </li> */}
             <li className="flex gap-3 items-center">
               <FaWhatsapp className="text-yellow-500 w-5 h-5" />
-              <span> +2349071663551</span>
+              <span> <Link href={`tel:+2349071663551`}>+2349071663551</Link></span>
             </li>
             <li className="flex gap-3 items-center">
               <Mail className="text-yellow-500 w-5 h-5" />
-              <span>info@orsfoundation.org</span>
+              <span><Link href={`mailto:${EMAIL_ADDRESS}`}>{EMAIL_ADDRESS}</Link></span>
             </li>
           </ul>
         </div>

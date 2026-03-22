@@ -6,15 +6,37 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import SplitText from "./SplitText";
+import { toast } from "sonner";
 
 export default function Newsletter() {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    alert(`Subscribed with: ${email}`);
-    setEmail("");
+
+    setLoading(true);
+    try {
+      const res = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success(data.message || "Subscribed successfully!");
+        setEmail("");
+      } else {
+        toast.error(data.error || "Something went wrong.");
+      }
+    } catch (error) {
+      toast.error("Failed to subscribe. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -67,13 +89,19 @@ export default function Newsletter() {
             placeholder="Enter Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled={loading}
             className="flex-1 border-none h-[50px] p-6 bg-white focus-visible:ring-0 focus-visible:ring-offset-0 text-gray-800 rounded-full"
           />
           <Button
             type="submit"
+            disabled={loading}
             className=" text-black rounded-full p-5 w-24 h-full"
           >
-            <Send className="h-5 w-5" />
+            {loading ? (
+              <span className="animate-pulse">...</span>
+            ) : (
+              <Send className="h-5 w-5" />
+            )}
           </Button>
         </form>
       </div>
