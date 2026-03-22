@@ -35,7 +35,7 @@ export async function POST(req: Request) {
         const mailOptions = {
           from: `"${name}" <${email}>`,
           to: process.env.ADMIN_EMAIL,
-          subject: "New Contact Form Submission",
+          subject: "ORS Foundation - New Contact Form Submission",
           text: `
             You have a new message from ${name} (${email}):
             -------------------------------------
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
           `,
           html: `
             <div style="font-family: sans-serif; line-height: 1.6;">
-              <h2>📬 New Contact Message</h2>
+              <h2>ORS Foundation - New Contact Message</h2>
               <p><strong>Name:</strong> ${name}</p>
               <p><strong>Email:</strong> ${email}</p>
               ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ""}
