@@ -70,7 +70,7 @@ export default function Footer() {
             <li className="flex gap-3 items-center">
               <Mail className="text-yellow-500 w-5 h-5" />
               <span><Link href={`mailto:${EMAIL_ADDRESS}`}>{EMAIL_ADDRESS}</Link></span>
-            </li>
+            </li> 
           </ul>
         </div>
         <div className="flex gap-4 items-start ">
